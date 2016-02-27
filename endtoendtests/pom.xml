@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>parent</artifactId>
+        <groupId>com.andreyprofdev.bookstoreadhelper</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>endtoendtests</artifactId>
+    <packaging>pom</packaging>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>0.0.26</version>
+
+                <executions>
+                    <execution>
+                        <id>install node and npm</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <nodeVersion>v5.6.0</nodeVersion>
+                            <npmVersion>3.7.2</npmVersion>
+                            <installDirectory>../</installDirectory>
+                            <workingDirectory>../</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm install</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                            <installDirectory>../</installDirectory>
+                            <workingDirectory>../</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <!-- No need for now-->
+                    <!--<execution>-->
+                    <!--<id>jspm install</id>-->
+                    <!--<goals>-->
+                    <!--<goal>jspm</goal>-->
+                    <!--</goals>-->
+                    <!--<configuration>-->
+                    <!--<arguments>&#45;&#45;version</arguments>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+
+                    <!--<execution>-->
+                    <!--<id>gulp build</id>-->
+                    <!--<goals>-->
+                    <!--<goal>gulp</goal>-->
+                    <!--</goals>-->
+
+                    <!--<phase>generate-resources</phase>-->
+
+                    <!--<configuration>-->
+                    <!--<arguments>default</arguments>-->
+                    <!--</configuration>-->
+                    <!--</execution>-->
+
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.andreyprofdev.bookstoreadhelper</groupId>
+                <artifactId>protractor-end-to-end-tests-runner</artifactId>
+                <version>1.0-SNAPSHOT</version>
+
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>runProtractorTests</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+                <configuration>
+                    <jettyServers>
+                        <jettyServer>
+                            <port>8000</port>
+                            <warLocation>webui/target/webui-${project.version}.war</warLocation>
+                        </jettyServer>
+                        <jettyServer>
+                            <port>8001</port>
+                            <warLocation>restserver/target/restserver-${project.version}.war</warLocation>
+                        </jettyServer>
+                    </jettyServers>
+                    <protractorConfPath>/endtoendtests/src/test/protractor.conf.js</protractorConfPath>
+                    <installDirectory>../</installDirectory>
+                    <workingDirectory>../</workingDirectory>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>app.env</name>
+                            <value>test</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
