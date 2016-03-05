@@ -21,10 +21,5 @@ exports.loginUser = function (login, password){
         fldPassword.sendKeys(password);
     });
 
-    var fldConfirmPassword = element(by.id('fld-confirm-password'));
-    fldConfirmPassword.clear().then(function() {
-        fldConfirmPassword.sendKeys(password);
-    });
-
     element(by.id('btn-submit')).click();
 };

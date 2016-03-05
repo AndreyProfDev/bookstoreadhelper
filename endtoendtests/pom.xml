@@ -89,11 +89,7 @@
                     <jettyServers>
                         <jettyServer>
                             <port>8000</port>
-                            <warLocation>webui/target/webui-${project.version}.war</warLocation>
-                        </jettyServer>
-                        <jettyServer>
-                            <port>8001</port>
-                            <warLocation>restserver/target/restserver-${project.version}.war</warLocation>
+                            <warLocation>selfeducation/target/webui-${project.version}.war</warLocation>
                         </jettyServer>
                     </jettyServers>
                     <protractorConfPath>/endtoendtests/src/test/protractor.conf.js</protractorConfPath>

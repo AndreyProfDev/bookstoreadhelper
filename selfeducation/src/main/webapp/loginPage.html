@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Login Page</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+    <script src="/javascript/loginpagecontroller.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/loginPage.css">
+</head>
+<body>
+<form id="logged-form" name="logged-form">
+    <div id="login-form">
+        <fieldset>
+            <legend>Login:</legend>
+            <label for="fld-username">Username: </label><input id="fld-username" name="fld-username"><br/>
+            <label for="fld-password">Password:</label><input id="fld-password" name="fld-password"><br/>
+            <span id="login-error" name="login-error"></span><br/>
+            <button type="submit" id="btn-submit">Login</button>
+        </fieldset>
+    </div>
+</form>
+</body>
+</html>

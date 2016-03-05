@@ -6,3 +6,4 @@
 #ignore all node files
 node
 node_modules
+target
