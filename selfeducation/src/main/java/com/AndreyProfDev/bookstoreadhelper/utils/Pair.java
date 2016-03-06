@@ -1,4 +1,6 @@
-package com.AndreyProfDev.bookstoreadhelper;
+package com.AndreyProfDev.bookstoreadhelper.utils;
+
+import com.google.common.base.Objects;
 
 public class Pair<T, K> {
     private T value1;
@@ -27,12 +29,12 @@ public class Pair<T, K> {
         }
 
         Pair that = (Pair) other;
-        return DataUtils.equalsNullSafe(value1, that.value1) &&
-                DataUtils.equalsNullSafe(value2, that.value2);
+        return Objects.equal(value1, that.value1) &&
+                Objects.equal(value2, that.value2);
     }
 
     @Override
     public int hashCode() {
-        return DataUtils.calculateHashCode(value1, value2);
+        return Objects.hashCode(value1, value2);
     }
 }

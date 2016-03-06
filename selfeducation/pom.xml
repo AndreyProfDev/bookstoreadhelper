@@ -9,78 +9,17 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>webui</artifactId>
-
-    <packaging>war</packaging>
+    <artifactId>selfeducation</artifactId>
 
     <properties>
         <spring.version>4.2.4.RELEASE</spring.version>
         <dbh2.version>1.4.187</dbh2.version>
-        <jstl.version>1.2</jstl.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jdk.version>1.8</jdk.version>
-        <default.webui.jetty.port>8000</default.webui.jetty.port>
     </properties>
 
     <build>
         <plugins>
-                <!--<groupId>com.github.eirslett</groupId>-->
-                <!--<artifactId>frontend-maven-plugin</artifactId>-->
-                <!--<version>0.0.26</version>-->
-
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<id>install node and npm</id>-->
-                        <!--<goals>-->
-                            <!--<goal>install-node-and-npm</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<nodeVersion>v0.12.2</nodeVersion>-->
-                            <!--<npmVersion>2.7.6</npmVersion>-->
-                            <!--<installDirectory>../</installDirectory>-->
-                            <!--<workingDirectoryPath>../</workingDirectoryPath>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-
-                    <!--<execution>-->
-                        <!--<id>npm install</id>-->
-                        <!--<goals>-->
-                            <!--<goal>npm</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<arguments>install</arguments>-->
-                            <!--<installDirectory>../</installDirectory>-->
-                            <!--<workingDirectoryPath>../</workingDirectoryPath>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-
-                    <!-- No need for now-->
-                    <!--<execution>-->
-                        <!--<id>jspm install</id>-->
-                        <!--<goals>-->
-                            <!--<goal>jspm</goal>-->
-                        <!--</goals>-->
-                        <!--<configuration>-->
-                            <!--<arguments>&#45;&#45;version</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-
-                    <!--<execution>-->
-                        <!--<id>gulp build</id>-->
-                        <!--<goals>-->
-                            <!--<goal>gulp</goal>-->
-                        <!--</goals>-->
-
-                        <!--<phase>generate-resources</phase>-->
-
-                        <!--<configuration>-->
-                            <!--<arguments>default</arguments>-->
-                        <!--</configuration>-->
-                    <!--</execution>-->
-
-                <!--</executions>-->
-            <!--</plugin>-->
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -92,87 +31,58 @@
             </plugin>
 
             <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.3.6.v20151106</version>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>1.3.3.RELEASE</version>
                 <configuration>
-                    <systemProperties>
-                        <systemProperty>
-                            <name>app.env</name>
-                            <value>test</value>
-                        </systemProperty>
-                    </systemProperties>
-                    <httpConnector>
-                        <port>${default.webui.jetty.port}</port>
-                    </httpConnector>
+                    <arguments>
+                        <argument>--app.env=test</argument>
+                    </arguments>
                 </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
 
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
+
     <dependencies>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.4.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-web</artifactId>
-            <version>4.0.3.RELEASE</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-config</artifactId>
-            <version>4.0.3.RELEASE</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-
-        <!--<dependency>-->
-        <!--<groupId>javax.servlet</groupId>-->
-        <!--<artifactId>jstl</artifactId>-->
-        <!--<version>${jstl.version}</version>-->
-        <!--</dependency>-->
-
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>3.1.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+            <version>1.3.3.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.3.3.RELEASE</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -186,18 +96,17 @@
             <version>${dbh2.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>log4j</groupId>-->
+            <!--<artifactId>log4j</artifactId>-->
+            <!--<version>1.2.17</version>-->
+        <!--</dependency>-->
 
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-server</artifactId>
-            <version>9.3.6.v20151106</version>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>19.0</version>
         </dependency>
-
     </dependencies>
 
 </project>

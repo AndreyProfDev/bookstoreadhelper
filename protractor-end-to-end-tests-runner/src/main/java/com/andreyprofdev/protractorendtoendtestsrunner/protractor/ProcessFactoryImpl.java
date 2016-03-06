@@ -33,6 +33,18 @@ public class ProcessFactoryImpl implements ProcessFactory{
             return processHolder.exitValue();
         }
 
+        public int startAndWaitForInfo(List<String> commands, String infoMessage) throws IOException, InterruptedException{
+            processHolder = new ProcessBuilder().command(commands).start();
+
+            Thread errorLogThread = InputStreamHandler.attachLogErrorHandler(processHolder.getErrorStream(), logger);
+            errorLogThread.start();
+            Thread watcherLogThread = InputStreamHandler.attachLogInfoHandler(processHolder.getInputStream(), logger, infoMessage);
+            watcherLogThread.start();
+
+            watcherLogThread.join();
+            return 0;
+        }
+
         @Override
         public int startAndWaitForError(List<String> commands, String errorMessage) throws IOException, InterruptedException {
             processHolder = new ProcessBuilder().command(commands).start();

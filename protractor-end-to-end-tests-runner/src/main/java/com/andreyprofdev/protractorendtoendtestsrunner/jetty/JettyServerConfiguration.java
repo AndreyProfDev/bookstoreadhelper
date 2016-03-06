@@ -1,6 +1,6 @@
 package com.andreyprofdev.protractorendtoendtestsrunner.jetty;
 
-import com.AndreyProfDev.bookstoreadhelper.DataUtils;
+import com.google.common.base.Objects;
 
 public class JettyServerConfiguration {
     private String warLocation;
@@ -39,12 +39,12 @@ public class JettyServerConfiguration {
         }
 
         JettyServerConfiguration that = (JettyServerConfiguration) other;
-        return DataUtils.equalsNullSafe(warLocation, that.warLocation) &&
-                DataUtils.equalsNullSafe(port, that.port);
+        return Objects.equal(warLocation, that.warLocation) &&
+                Objects.equal(port, that.port);
     }
 
     @Override
     public int hashCode() {
-        return DataUtils.calculateHashCode(warLocation, port);
+        return Objects.hashCode(warLocation, port);
     }
 }

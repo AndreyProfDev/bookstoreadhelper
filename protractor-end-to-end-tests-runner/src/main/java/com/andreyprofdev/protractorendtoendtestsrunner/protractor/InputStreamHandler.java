@@ -21,6 +21,16 @@ public class InputStreamHandler extends Thread {
         this.logger = logger;
     }
 
+    public static InputStreamHandler attachLogInfoHandler(InputStream inputStream, final Logger logger, String stopMessage){
+        return new InputStreamHandler(inputStream, new LogLevelLogger() {
+            @Override
+            public boolean log(String value) {
+                logger.info(value);
+                return value.contains(stopMessage);
+            }
+        });
+    }
+
     public static InputStreamHandler attachLogInfoHandler(InputStream inputStream, final Logger logger){
         return new InputStreamHandler(inputStream, new LogLevelLogger() {
             @Override
@@ -46,9 +56,7 @@ public class InputStreamHandler extends Thread {
             @Override
             public boolean log(String value) {
                 logger.error(value);
-                int pos = value.indexOf(" - ");
-                value = value.substring(pos + 3);
-                return stopMessage.equals(value);
+                return value.contains(stopMessage);
             }
         });
     }

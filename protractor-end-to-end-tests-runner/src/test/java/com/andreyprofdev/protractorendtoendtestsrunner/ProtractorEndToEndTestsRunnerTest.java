@@ -4,6 +4,9 @@ import com.andreyprofdev.protractorendtoendtestsrunner.ProtractorEndToEndTestsRu
 import com.andreyprofdev.protractorendtoendtestsrunner.jetty.*;
 import com.andreyprofdev.protractorendtoendtestsrunner.protractor.*;
 import com.andreyprofdev.protractorendtoendtestsrunner.protractor.Process;
+import com.andreyprofdev.protractorendtoendtestsrunner.springboot.SpringBootServer;
+import com.andreyprofdev.protractorendtoendtestsrunner.springboot.SpringBootServerConfiguration;
+import com.andreyprofdev.protractorendtoendtestsrunner.springboot.SpringBootServerFactory;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Test;
@@ -29,14 +32,21 @@ public class ProtractorEndToEndTestsRunnerTest {
 
     private int JETTY_SERVER1_PORT = 11;
     private String JETTY_SERVER1_WAR_LOCATION = "/war_location1";
+
     private int JETTY_SERVER2_PORT = 12;
     private String JETTY_SERVER2_WAR_LOCATION = "/war_location2";
+
+    private int SPRING_BOOT_SERVER_PORT = 13;
+    private String SPRING_BOOT_SERVER_JAR_LOCATION = "/jar_location";
 
     @Test
     public void test() throws Exception {
         JettyServerFactory jettyFactory = context.mock(JettyServerFactory.class);
         JettyServer jettyServer1 = context.mock(JettyServer.class, "webappJettyServer");
         JettyServer jettyServer2 = context.mock(JettyServer.class, "restBackendJettyServer");
+
+        SpringBootServerFactory  springBootServerFactory = context.mock(SpringBootServerFactory.class);
+        SpringBootServer springBootServer = context.mock(SpringBootServer.class, "springBootServer");
 
         ProcessFactory processFactory = context.mock(ProcessFactory.class);
 
@@ -54,12 +64,17 @@ public class ProtractorEndToEndTestsRunnerTest {
              */
             oneOf(jettyFactory).buildJettyServer(new JettyServerConfiguration(JETTY_SERVER1_WAR_LOCATION, JETTY_SERVER1_PORT));
             will(returnValue(jettyServer1));
-
             oneOf(jettyServer1).start();
 
             oneOf(jettyFactory).buildJettyServer(new JettyServerConfiguration(JETTY_SERVER2_WAR_LOCATION, JETTY_SERVER2_PORT));
             will(returnValue(jettyServer2));
+            oneOf(springBootServer).start();
 
+            /**
+             * Start spring boot server
+             */
+            oneOf(springBootServerFactory).buildSpringBootServer(new SpringBootServerConfiguration(SPRING_BOOT_SERVER_JAR_LOCATION, SPRING_BOOT_SERVER_PORT));
+            will(returnValue(springBootServer));
             oneOf(jettyServer2).start();
 
             /**
@@ -89,6 +104,13 @@ public class ProtractorEndToEndTestsRunnerTest {
             oneOf(jettyServer2).stop();
             oneOf(jettyServer2).getWarLocation();
             will(returnValue(JETTY_SERVER2_WAR_LOCATION));
+
+            /**
+             * Stop spring boot server
+             */
+            oneOf(springBootServer).stop();
+            oneOf(springBootServer).getJarLocation();
+            will(returnValue(SPRING_BOOT_SERVER_JAR_LOCATION));
         }});
 
 
@@ -96,6 +118,9 @@ public class ProtractorEndToEndTestsRunnerTest {
 
         runner.setJettyServerConfigurations(prepareJettyServerConfigurations());
         runner.setJettyServerFactory(jettyFactory);
+
+        runner.setSpringBootServerConfiguration(prepareSpringBootServerConfigurations());
+        runner.setSpringBootServerFactory(springBootServerFactory);
 
         runner.setProtractorRunner(protractorRunner);
         runner.start();
@@ -117,6 +142,17 @@ public class ProtractorEndToEndTestsRunnerTest {
         serverConfiguration.setPort(JETTY_SERVER2_PORT);
         serverConfiguration.setWarLocation(JETTY_SERVER2_WAR_LOCATION);
         serverConfigurations[1] = serverConfiguration;
+
+        return serverConfigurations;
+    }
+
+    private SpringBootServerConfiguration[] prepareSpringBootServerConfigurations(){
+        SpringBootServerConfiguration[] serverConfigurations = new SpringBootServerConfiguration[1];
+
+        SpringBootServerConfiguration serverConfiguration = new SpringBootServerConfiguration();
+        serverConfiguration.setPort(SPRING_BOOT_SERVER_PORT);
+        serverConfiguration.setJarLocation(SPRING_BOOT_SERVER_JAR_LOCATION);
+        serverConfigurations[0] = serverConfiguration;
 
         return serverConfigurations;
     }

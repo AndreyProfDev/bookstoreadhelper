@@ -1,6 +1,6 @@
 package com.andreyprofdev.protractorendtoendtestsrunner.jetty;
 
-import com.AndreyProfDev.bookstoreadhelper.DataUtils;
+import com.google.common.base.Objects;
 
 public class SystemProperty {
     private String name;
@@ -40,12 +40,12 @@ public class SystemProperty {
         }
 
         SystemProperty that = (SystemProperty) other;
-        return DataUtils.equalsNullSafe(name, that.name) &&
-                DataUtils.equalsNullSafe(value, that.value);
+        return Objects.equal(name, that.name) &&
+                Objects.equal(value, that.value);
     }
 
     @Override
     public int hashCode() {
-        return DataUtils.calculateHashCode(name, value);
+        return Objects.hashCode(name, value);
     }
 }

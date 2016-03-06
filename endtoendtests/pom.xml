@@ -45,30 +45,6 @@
                         </configuration>
                     </execution>
 
-                    <!-- No need for now-->
-                    <!--<execution>-->
-                    <!--<id>jspm install</id>-->
-                    <!--<goals>-->
-                    <!--<goal>jspm</goal>-->
-                    <!--</goals>-->
-                    <!--<configuration>-->
-                    <!--<arguments>&#45;&#45;version</arguments>-->
-                    <!--</configuration>-->
-                    <!--</execution>-->
-
-                    <!--<execution>-->
-                    <!--<id>gulp build</id>-->
-                    <!--<goals>-->
-                    <!--<goal>gulp</goal>-->
-                    <!--</goals>-->
-
-                    <!--<phase>generate-resources</phase>-->
-
-                    <!--<configuration>-->
-                    <!--<arguments>default</arguments>-->
-                    <!--</configuration>-->
-                    <!--</execution>-->
-
                 </executions>
             </plugin>
             <plugin>
@@ -84,14 +60,13 @@
                         </goals>
                     </execution>
                 </executions>
-
                 <configuration>
-                    <jettyServers>
-                        <jettyServer>
+                    <springBootServers>
+                        <springBootServer>
                             <port>8000</port>
-                            <warLocation>selfeducation/target/webui-${project.version}.war</warLocation>
-                        </jettyServer>
-                    </jettyServers>
+                            <jarLocation>selfeducation/target/selfeducation-${project.version}.jar</jarLocation>
+                        </springBootServer>
+                    </springBootServers>
                     <protractorConfPath>/endtoendtests/src/test/protractor.conf.js</protractorConfPath>
                     <installDirectory>../</installDirectory>
                     <workingDirectory>../</workingDirectory>

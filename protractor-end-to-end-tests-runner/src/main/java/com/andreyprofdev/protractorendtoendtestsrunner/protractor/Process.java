@@ -8,5 +8,7 @@ public interface Process {
 
     int startAndWaitForError(List<String> commands, String errorMessage) throws IOException, InterruptedException;
 
+    int startAndWaitForInfo(List<String> commands, String infoMessage) throws IOException, InterruptedException;
+
     void stop();
 }
