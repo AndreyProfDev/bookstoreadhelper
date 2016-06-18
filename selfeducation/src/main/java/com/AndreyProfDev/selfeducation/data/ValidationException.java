@@ -1,4 +1,4 @@
-package com.AndreyProfDev.bookstoreadhelper.data;
+package com.AndreyProfDev.selfeducation.data;
 
 public class ValidationException extends RuntimeException {
 

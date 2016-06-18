@@ -1,4 +1,4 @@
-package com.AndreyProfDev.bookstoreadhelper;
+package com.AndreyProfDev.selfeducation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

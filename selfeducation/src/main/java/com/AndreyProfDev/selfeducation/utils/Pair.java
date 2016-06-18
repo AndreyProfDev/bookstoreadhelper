@@ -1,4 +1,4 @@
-package com.AndreyProfDev.bookstoreadhelper.utils;
+package com.AndreyProfDev.selfeducation.utils;
 
 import com.google.common.base.Objects;
 

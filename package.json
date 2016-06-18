@@ -4,7 +4,7 @@
   "description": "Small UI application to control reading of books",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AndreyProfDev/bookstoreadhelper"
+    "url": "https://github.com/AndreyProfDev/selfeducation"
   },
   "devDependencies": {
     "karma": "^0.13.21",

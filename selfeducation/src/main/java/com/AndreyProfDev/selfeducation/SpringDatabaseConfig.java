@@ -1,4 +1,4 @@
-package com.AndreyProfDev.bookstoreadhelper;
+package com.AndreyProfDev.selfeducation;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

@@ -1,6 +1,6 @@
-package com.AndreyProfDev.bookstoreadhelper.resource;
+package com.AndreyProfDev.selfeducation.resource;
 
-import com.AndreyProfDev.bookstoreadhelper.data.Book;
+import com.AndreyProfDev.selfeducation.data.Book;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
